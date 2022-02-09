@@ -1,20 +1,22 @@
+import { useState } from 'react';
 import './Room.css';
 
-export default function Room({
-  text,
-  description,
-  isDescriptionVisible,
-  isClean,
-}) {
-  const statusClassName = isClean
-    ? `Room__status Room__status--clean`
-    : `Room__status Room__status--dirty`; // `Room__status Room__status--${isClean ? 'clean' : 'dirty'}`
+export default function Room({ text, description, isClean, toggleStatus }) {
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+
+  const statusClassName = `Room__status Room__status--${
+    isClean ? 'clean' : 'dirty'
+  }`;
+
   return (
-    <section className="Room">
+    <section onClick={toggleDescription} className="Room">
       {text}
-      <div className={statusClassName}></div>
+      <button onClick={toggleStatus} className={statusClassName}></button>
       <p hidden={!isDescriptionVisible}>{description}</p>
-      {/* alternativ: {isDescriptionVisible && <p>{description}</p>} */}
     </section>
   );
+
+  function toggleDescription() {
+    setIsDescriptionVisible(!isDescriptionVisible);
+  }
 }

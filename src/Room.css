@@ -12,6 +12,7 @@
   background: grey;
   justify-self: end;
   align-self: center;
+  border: none;
 }
 
 .Room__status--clean {
