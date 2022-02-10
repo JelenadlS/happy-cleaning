@@ -5,23 +5,26 @@ import Room from './Room.js';
 import Mates from './Mates';
 
 export default function App() {
-  const [rooms, setRooms] = useState([
-    {
-      text: 'Küche',
-      description: 'Boden, Spüle',
-      isClean: false,
-    },
-    {
-      text: 'Wohnzimmer',
-      description: 'Teppich, Heizung',
-      isClean: true,
-    },
-    {
-      text: 'Bad',
-      description: 'Waschbecken, Spiegel ',
-      isClean: false,
-    },
-  ]);
+  const [rooms, setRooms] = useState(
+    loadFromLocal('rooms') ?? [
+      {
+        text: 'Küche',
+        description: 'Boden, Spüle',
+      },
+      {
+        text: 'Wohnzimmer',
+        description: 'Teppich, Heizung',
+      },
+      {
+        text: 'Bad',
+        description: 'Waschbecken, Spiegel ',
+      },
+    ]
+  );
+
+  useEffect(() => {
+    saveToLocal('rooms', rooms);
+  }, [rooms]);
 
   const [characters, setCharacters] = useState([]);
 
@@ -67,4 +70,16 @@ export default function App() {
       </main>
     </>
   );
+
+  function loadFromLocal(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function saveToLocal(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 }
