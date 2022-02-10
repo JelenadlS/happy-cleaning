@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import './Mates.css';
 
 export default function Mates({ characters }) {
