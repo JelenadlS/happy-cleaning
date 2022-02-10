@@ -3,6 +3,8 @@ import './App.css';
 import Header from './Header.js';
 import Room from './Room.js';
 import Mates from './Mates';
+import Navbar from './Navbar';
+import './Navbar.css';
 
 export default function App() {
   const [rooms, setRooms] = useState(
@@ -28,6 +30,8 @@ export default function App() {
 
   const [characters, setCharacters] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState('rooms');
+
   async function loadCharacters() {
     try {
       const response = await fetch('https://rickandmortyapi.com/api/character');
@@ -46,28 +50,32 @@ export default function App() {
     <>
       <main className="App">
         <Header>Happy Cleaning!</Header>
-        {rooms.map((room, index) => (
-          <Room
-            key={room.text}
-            text={room.text}
-            description={room.description}
-            isDescriptionVisible={room.isDescriptionVisible}
-            isClean={room.isClean}
-            toggleStatus={(event) => {
-              event.stopPropagation();
-              setRooms([
-                ...rooms.slice(0, index),
-                { ...rooms[index], isClean: !room.isClean },
-                ...rooms.slice(index + 1),
-              ]);
-            }}
-          />
-        ))}
+        {currentPage === 'rooms' &&
+          rooms.map((room, index) => (
+            <Room
+              key={room.text}
+              text={room.text}
+              description={room.description}
+              isDescriptionVisible={room.isDescriptionVisible}
+              isClean={room.isClean}
+              toggleStatus={(event) => {
+                event.stopPropagation();
+                setRooms([
+                  ...rooms.slice(0, index),
+                  { ...rooms[index], isClean: !room.isClean },
+                  ...rooms.slice(index + 1),
+                ]);
+              }}
+            />
+          ))}
       </main>
-      <main>
-        <Header>Flat Mates</Header>
-        <Mates characters={characters} />
-      </main>
+      {currentPage === 'flatmates' && (
+        <main>
+          <Header>Flat Mates</Header>
+          <Mates characters={characters} />
+        </main>
+      )}
+      <Navbar setCurrentPage={setCurrentPage} />
     </>
   );
 
