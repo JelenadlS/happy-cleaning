@@ -17,13 +17,13 @@ export default function Navbar({ setCurrentPage, currentPage }) {
   return (
     <div className="Navbar">
       <button
-        className={isActive ? '' : 'Navbar__button--active'}
+        className={`Navbar__button ${isActive ? '' : 'Navbar__button--active'}`}
         onClick={handleClickRooms}
       >
         Rooms
       </button>
       <button
-        className={isActive ? 'Navbar__button--active' : ''}
+        className={`Navbar__button ${isActive ? 'Navbar__button--active' : ''}`}
         onClick={handleClickMates}
       >
         Flatmates
