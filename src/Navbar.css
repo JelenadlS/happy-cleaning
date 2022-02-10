@@ -1,0 +1,17 @@
+.Navbar {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  border-top: 4px solid black;
+}
+
+.Navbar__button {
+  flex-grow: 1;
+  margin: 0.5rem;
+  padding: 1rem 0;
+  border: none;
+}
+
+.Navbar__button--active {
+  background-color: hotpink;
+}
